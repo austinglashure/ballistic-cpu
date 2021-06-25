@@ -12,21 +12,30 @@ float toKelvin(float celc){
     return celc + 273.15;
 }
 
+float toPascal(float inhg){
+    return inhg * 3386.38867;
+}
+
+float toHectoPascal(float pasc){
+    return pasc * 0.01;
+}
+
 int main(){
     int running = 1;
     int reset = 1;
 
     while (running > 0){
         float fahrenheit, celcius, kelvin;
-        float inHg, pascals;
+        float inHg, pascals, hectopascals;
         printf("What's the temperature in Farenheit?\n");
         scanf("%f", &fahrenheit);
-        // printf("The temperature is %f degrees\n", fahrenheit);
         celcius = toCelcius(fahrenheit);
         kelvin = toKelvin(celcius);
-        printf("What is the pressure in inHg?");
+        printf("What is the pressure in inHg?\n");
         scanf("%f", &inHg);
-        printf("%f is the pressure", inHg);
+        pascals = toPascal(inHg);
+        hectopascals = toHectoPascal(pascals);
+
         // put statements and queries for user here
         printf("Do you want to reset the loop? 1/0\n");
         scanf("%d", &reset);
