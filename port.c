@@ -18,11 +18,15 @@ int main(){
 
     while (running > 0){
         float fahrenheit, celcius, kelvin;
+        float inHg, pascals;
         printf("What's the temperature in Farenheit?\n");
         scanf("%f", &fahrenheit);
         // printf("The temperature is %f degrees\n", fahrenheit);
         celcius = toCelcius(fahrenheit);
         kelvin = toKelvin(celcius);
+        printf("What is the pressure in inHg?");
+        scanf("%f", &inHg);
+        printf("%f is the pressure", inHg);
         // put statements and queries for user here
         printf("Do you want to reset the loop? 1/0\n");
         scanf("%d", &reset);
