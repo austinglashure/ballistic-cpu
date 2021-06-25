@@ -6,13 +6,17 @@
 
 int main(){
     int running = 1;
+    int reset = 1;
 
     while (running > 0){
+        int fahrenheit;
+        printf("What's the temperature in Farenheit?\n");
+        scanf("%d", &fahrenheit);
+        printf("The temperature is %d degrees\n", fahrenheit);
         // put statements and queries for user here
-        puts("Do you want to reset the loop?\ny/n");
-        char reset[1];
-        gets(reset);
-        if (*reset > 120){// can use ascii values to compart chars
+        printf("Do you want to reset the loop? 1/0\n");
+        scanf("%d", &reset);
+        if (reset > 0){// can use ascii values to compare chars
             running = 1;
         }
         else {
