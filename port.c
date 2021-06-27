@@ -4,6 +4,7 @@
 #define UNIVERSAL_GAS_CONSTANT 8.312 // J/(K*mol)
 #define AIR_MOLAR_MASS 0.0289654 // kg/mol
 #define VAPOR_MOLAR_MASS 0.018016 // kg/mol
+#define TIME_IMPULSE 0.001 // milliseconds
 
 float toCelcius(float fahr){
     return (fahr - 32) / 1.8;
@@ -61,18 +62,19 @@ int main(){
         // do pressure conversions
         pascals = toPascal(inHg);
         hectopascals = toHectoPascal(pascals);
-        // air density calculations
+        // air density variable instanciations
         float saturation_vapor_pressure, humidity;
         float vapor_pressure, air_pressure, air_density;
-        saturation_vapor_pressure = getSaturationVaporPressure(celcius);
+        // query user for humidity
         printf("What is the humidity? 0-100\n");
         scanf("%f", &humidity);
+        // air density calculations
+        saturation_vapor_pressure = getSaturationVaporPressure(celcius);
         humidity = humidity / 100;  // turns a 100% into 1.00
         vapor_pressure = getVaporPressure(humidity, saturation_vapor_pressure);
         air_pressure = getAirPressure(vapor_pressure, pascals);
         air_density = getAirDensity(air_pressure, vapor_pressure, kelvin);
 
-        // put statements and queries for user here
         printf("Do you want to reset the loop? 1/0\n");
         scanf("%d", &reset);
         if (reset > 0){// can use ascii values to compare chars
