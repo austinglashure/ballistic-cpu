@@ -41,17 +41,22 @@ float getAirDensity(float dry_part, float vap_part, float kelv){
     return numer / denom;
 }
 
+struct Gun {
+    float bc;
+    float caliber;
+    float mass;
+    float muzzle_velocity;
+};
+
 int main(){
     int running = 1;
     int reset = 1;
 
-    struct Gun
-    {
-        float bc;
-        float caliber;
-        float mass;
-        float muzzle_velocity;
-    };
+    struct Gun a;
+    a.bc = 0.45;
+    a.caliber = 0.0078232; // in meters .308"
+    a.mass = 0.01069182; // in kilograms 165 grains
+    a.muzzle_velocity = 860; // in meters 2821 fps
 
     while (running > 0){
         // temperature variables
