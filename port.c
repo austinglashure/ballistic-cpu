@@ -129,28 +129,27 @@ int main(){
         }
     }
 
-// ballistics loop
-    bool new_target = true;
-    while (new_target){
-        // ballistics variables
-        float range, vel0, velF, decel, instant_decel, force_drag, avg_vel;
-        printf("What is the target's range?\n");
-        scanf("%f\n", &range);
-        float distance_travelled = 0;
-        // flight time calculation loop
-        vel0 = a.muzzle_velocity;
-        while (distance_travelled < range){
-            force_drag = getDragForce(drag_coefficient, vel0);
-            instant_decel = getInstantDecel(force_drag, a.mass);
-            decel = instant_decel * TIME_IMPULSE;
-            velF = vel0 + decel;
-            avg_vel = getAverageDecel(vel0, velF);
-            
-
-
-
-        }
+    // ballistics variables
+    float range, vel0, velF, decel, instant_decel, force_drag, avg_vel;
+    float displacement, flight_time;
+    printf("What is the target's range?\n");
+    scanf(" %f", &range);
+    float distance_travelled = 0;
+    // flight time calculation loop
+    vel0 = a.muzzle_velocity;
+    while (distance_travelled < range){
+        force_drag = getDragForce(drag_coefficient, vel0);
+        instant_decel = getInstantDecel(force_drag, a.mass);
+        decel = instant_decel * TIME_IMPULSE;
+        velF = vel0 + decel;
+        avg_vel = getAverageDecel(vel0, velF);
+        displacement = avg_vel * TIME_IMPULSE;
+        distance_travelled += displacement;
+        flight_time += TIME_IMPULSE;
+        vel0 = velF;
     }
+    printf("flight time for %f meters: %f\n", range, flight_time);
+
     puts("I'm out");
 
     return 0;
