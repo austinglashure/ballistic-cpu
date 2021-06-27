@@ -52,6 +52,10 @@ float getDragCoefficient(float air_dens, float bc, float csa){
     return 0.5 * air_dens * bc * csa;
 }
 
+float getDragForce(float drag_coef, float vel_zero){
+    return drag_coef * vel_zero * vel_zero;
+}
+
 struct Gun {
     float bc;
     float caliber;
@@ -69,8 +73,11 @@ int main(){
     a.bc = 0.45;
     a.caliber = 0.0078232; // in meters .308in
     a.mass = 0.01069182; // in kilograms 165 grains
-    a.muzzle_velocity = 860; // in meters 2821 fps
+    a.muzzle_velocity = 860; // in meters/sec 2821 fps
     a.cross_sectional_area = getCrossSectionalArea(a.caliber); // m^2
+
+// drag variable
+    float drag_coefficient;
 
 // weather variables loop
     while (getting_weather){
@@ -102,8 +109,6 @@ int main(){
         vapor_pressure = getVaporPressure(humidity, saturation_vapor_pressure);
         air_pressure = getAirPressure(vapor_pressure, pascals);
         air_density = getAirDensity(air_pressure, vapor_pressure, kelvin);
-        // drag variable
-        float drag_coefficient;
         drag_coefficient = getDragCoefficient(air_density, a.bc, a.cross_sectional_area);
 
         printf("Do you wish to change any of these variables? 1/0\n");
@@ -119,10 +124,17 @@ int main(){
 // ballistics loop
     bool new_target = true;
     while (new_target){
-        int range;
-        printf("What is the target's range?");
-        scanf("%d", &range);
-        new_target = false;
+        // ballistics variables
+        float range, vel0, velF, decel, instant_decel, force_drag;
+        printf("What is the target's range?\n");
+        scanf("%f\n", &range);
+        float distance_travelled = 0;
+        // flight time calculation loop
+        vel0 = a.muzzle_velocity;
+        while (distance_travelled < range){
+            force_drag = getDragForce(drag_coefficient, vel0);
+            
+        }
     }
     puts("I'm out");
 
