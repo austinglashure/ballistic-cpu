@@ -64,6 +64,10 @@ float getAverageDecel(float vel_zero, float vel_f){
     return (vel_zero + vel_f) / 2;
 }
 
+float getBulletDrop(float flight_time){
+    return -4.9 * flight_time * flight_time;
+}
+
 struct Gun {
     float bc;
     float caliber;
@@ -148,7 +152,11 @@ int main(){
         flight_time += TIME_IMPULSE;
         vel0 = velF;
     }
-    printf("flight time for %f meters: %f\n", range, flight_time);
+    float bullet_drop = getBulletDrop(flight_time);
+    printf("flight time for %f meters: %f seconds\n", range, flight_time);
+    printf("Initial velocity: %f meters/sec\n", a.muzzle_velocity);
+    printf("Impact velocity: %f meters/sec\n", velF);
+    printf("Bullet drop at %f meters: %f meters\n", range, bullet_drop);
 
     puts("I'm out");
 
