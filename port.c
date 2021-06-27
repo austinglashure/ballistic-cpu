@@ -64,6 +64,7 @@ int main(){
     bool getting_weather = true;
     int reset = 1;
 
+// 'profile' for my .308
     struct Gun a;
     a.bc = 0.45;
     a.caliber = 0.0078232; // in meters .308in
@@ -71,6 +72,7 @@ int main(){
     a.muzzle_velocity = 860; // in meters 2821 fps
     a.cross_sectional_area = getCrossSectionalArea(a.caliber); // m^2
 
+// weather variables loop
     while (getting_weather){
         // temperature variables
         float fahrenheit, celcius, kelvin;
@@ -114,6 +116,14 @@ int main(){
         }
     }
 
+// ballistics loop
+    bool new_target = true;
+    while (new_target){
+        int range;
+        printf("What is the target's range?");
+        scanf("%d", &range);
+        new_target = false;
+    }
     puts("I'm out");
 
     return 0;
