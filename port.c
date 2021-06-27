@@ -41,11 +41,22 @@ float getAirDensity(float dry_part, float vap_part, float kelv){
     return numer / denom;
 }
 
+float getCrossSectionalArea(float cal){
+    float pi = 3.1415926;
+    float radius = cal / 2;
+    return pi * pow(radius, 2);
+}
+
+float getDragCoefficient(float air_dens, float bc, float csa){
+    return 0.5 * air_dens * bc * csa;
+}
+
 struct Gun {
     float bc;
     float caliber;
     float mass;
     float muzzle_velocity;
+    float cross_sectional_area;
 };
 
 int main(){
@@ -57,6 +68,7 @@ int main(){
     a.caliber = 0.0078232; // in meters .308"
     a.mass = 0.01069182; // in kilograms 165 grains
     a.muzzle_velocity = 860; // in meters 2821 fps
+    a.cross_sectional_area = getCrossSectionalArea(a.caliber); // m^2
 
     while (running > 0){
         // temperature variables
@@ -87,7 +99,10 @@ int main(){
         vapor_pressure = getVaporPressure(humidity, saturation_vapor_pressure);
         air_pressure = getAirPressure(vapor_pressure, pascals);
         air_density = getAirDensity(air_pressure, vapor_pressure, kelvin);
-
+        // drag force variable
+        float drag_coefficient;
+        drag_coefficient = getDragCoefficient(air_density, a.bc, a.cross_sectional_area);
+        
         printf("Do you want to reset the loop? 1/0\n");
         scanf("%d", &reset);
         if (reset > 0){// can use ascii values to compare chars
