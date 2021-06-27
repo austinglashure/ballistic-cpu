@@ -45,6 +45,14 @@ int main(){
     int running = 1;
     int reset = 1;
 
+    struct Gun
+    {
+        float bc;
+        float caliber;
+        float mass;
+        float muzzle_velocity;
+    };
+
     while (running > 0){
         // temperature variables
         float fahrenheit, celcius, kelvin;
