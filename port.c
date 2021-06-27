@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdbool.h>
 
 #define UNIVERSAL_GAS_CONSTANT 8.312 // J/(K*mol)
 #define AIR_MOLAR_MASS 0.0289654 // kg/mol
@@ -60,17 +61,17 @@ struct Gun {
 };
 
 int main(){
-    int running = 1;
+    bool running = true;
     int reset = 1;
 
     struct Gun a;
     a.bc = 0.45;
-    a.caliber = 0.0078232; // in meters .308"
+    a.caliber = 0.0078232; // in meters .308in
     a.mass = 0.01069182; // in kilograms 165 grains
     a.muzzle_velocity = 860; // in meters 2821 fps
     a.cross_sectional_area = getCrossSectionalArea(a.caliber); // m^2
 
-    while (running > 0){
+    while (running){
         // temperature variables
         float fahrenheit, celcius, kelvin;
         // pressure variables
@@ -99,17 +100,18 @@ int main(){
         vapor_pressure = getVaporPressure(humidity, saturation_vapor_pressure);
         air_pressure = getAirPressure(vapor_pressure, pascals);
         air_density = getAirDensity(air_pressure, vapor_pressure, kelvin);
-        // drag force variable
-        float drag_coefficient;
+        // ballistics variables
+        float drag_coefficient, range, vel0, velF;
         drag_coefficient = getDragCoefficient(air_density, a.bc, a.cross_sectional_area);
         
+
         printf("Do you want to reset the loop? 1/0\n");
         scanf("%d", &reset);
         if (reset > 0){// can use ascii values to compare chars
-            running = 1;
+            running = true;
         }
         else {
-            running = 0;
+            running = false;
         }
     }
     puts("I'm out");
