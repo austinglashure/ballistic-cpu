@@ -61,7 +61,7 @@ struct Gun {
 };
 
 int main(){
-    bool running = true;
+    bool getting_weather = true;
     int reset = 1;
 
     struct Gun a;
@@ -71,7 +71,7 @@ int main(){
     a.muzzle_velocity = 860; // in meters 2821 fps
     a.cross_sectional_area = getCrossSectionalArea(a.caliber); // m^2
 
-    while (running){
+    while (getting_weather){
         // temperature variables
         float fahrenheit, celcius, kelvin;
         // pressure variables
@@ -84,7 +84,7 @@ int main(){
         kelvin = toKelvin(celcius);
         // get pressure input
         printf("What is the pressure in inHg?\n");
-        scanf("%f", &inHg);
+        scanf(" %f", &inHg);
         // do pressure conversions
         pascals = toPascal(inHg);
         hectopascals = toHectoPascal(pascals);
@@ -93,27 +93,27 @@ int main(){
         float vapor_pressure, air_pressure, air_density;
         // query user for humidity
         printf("What is the humidity? 0-100\n");
-        scanf("%f", &humidity);
+        scanf(" %f", &humidity);
         // air density calculations
         saturation_vapor_pressure = getSaturationVaporPressure(celcius);
         humidity = humidity / 100;  // turns a 100% into 1.00
         vapor_pressure = getVaporPressure(humidity, saturation_vapor_pressure);
         air_pressure = getAirPressure(vapor_pressure, pascals);
         air_density = getAirDensity(air_pressure, vapor_pressure, kelvin);
-        // ballistics variables
-        float drag_coefficient, range, vel0, velF;
+        // drag variable
+        float drag_coefficient;
         drag_coefficient = getDragCoefficient(air_density, a.bc, a.cross_sectional_area);
-        
 
-        printf("Do you want to reset the loop? 1/0\n");
+        printf("Do you wish to change any of these variables? 1/0\n");
         scanf("%d", &reset);
         if (reset > 0){// can use ascii values to compare chars
-            running = true;
+            getting_weather = true;
         }
         else {
-            running = false;
+            getting_weather = false;
         }
     }
+
     puts("I'm out");
 
     return 0;
