@@ -26,6 +26,14 @@ float getSaturationVaporPressure(float celc){
     return  6.1078 * 100 * pow(10, exponent);
 }
 
+float getVaporPressure(float hum, float sat_vap_pressure){
+    return sat_vap_pressure * hum;
+}
+
+float getAirPressure(float vap_pressure, float pasc){
+    return pasc - vap_pressure;
+}
+
 int main(){
     int running = 1;
     int reset = 1;
@@ -49,11 +57,13 @@ int main(){
         hectopascals = toHectoPascal(pascals);
         // air density calculations
         float saturation_vapor_pressure, humidity;
+        float vapor_pressure, air_pressure;
         saturation_vapor_pressure = getSaturationVaporPressure(celcius);
         printf("What is the humidity? 0-100\n");
         scanf("%f", &humidity);
-        printf("your humidity is %f", humidity);
-
+        humidity = humidity / 100;  // turns a 100% into 1.00
+        vapor_pressure = getVaporPressure(humidity, saturation_vapor_pressure);
+        air_pressure = getAirPressure(vapor_pressure, pascals);
 
         // put statements and queries for user here
         printf("Do you want to reset the loop? 1/0\n");
