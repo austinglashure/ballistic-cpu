@@ -15,7 +15,7 @@ class Air:
         self.farenheit = temperature
         self.inHg = pressure
         self.humidity = humidity
-# Ancillary Calculations and conversions
+    # Ancillary Calculations and conversions
         self.pressure = self.inHg / 0.00029530  # in Pa
         self.celcius = (self.farenheit - 32) / 1.8
         self.kelvin = self.celcius + 273.15
