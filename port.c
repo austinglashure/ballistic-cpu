@@ -56,6 +56,10 @@ float getDragForce(float drag_coef, float vel_zero){
     return drag_coef * vel_zero * vel_zero;
 }
 
+float getInstantDecel(float drag_force, float mass){
+    return -1 * drag_force / mass;
+}
+
 struct Gun {
     float bc;
     float caliber;
@@ -133,7 +137,9 @@ int main(){
         vel0 = a.muzzle_velocity;
         while (distance_travelled < range){
             force_drag = getDragForce(drag_coefficient, vel0);
+            instant_decel = getInstantDecel(force_drag, a.mass);
             
+
         }
     }
     puts("I'm out");
