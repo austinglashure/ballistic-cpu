@@ -48,8 +48,11 @@ int main(){
         pascals = toPascal(inHg);
         hectopascals = toHectoPascal(pascals);
         // air density calculations
-        float saturation_vapor_pressure;
+        float saturation_vapor_pressure, humidity;
         saturation_vapor_pressure = getSaturationVaporPressure(celcius);
+        printf("What is the humidity? 0-100\n");
+        scanf("%f", &humidity);
+        printf("your humidity is %f", humidity);
 
 
         // put statements and queries for user here
