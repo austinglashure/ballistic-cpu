@@ -134,29 +134,43 @@ int main(){
     }
 
     // ballistics variables
-    float range, vel0, velF, decel, instant_decel, force_drag, avg_vel;
-    float displacement, flight_time;
-    printf("What is the target's range?\n");
-    scanf(" %f", &range);
-    float distance_travelled = 0;
-    // flight time calculation loop
-    vel0 = a.muzzle_velocity;
-    while (distance_travelled < range){
-        force_drag = getDragForce(drag_coefficient, vel0);
-        instant_decel = getInstantDecel(force_drag, a.mass);
-        decel = instant_decel * TIME_IMPULSE;
-        velF = vel0 + decel;
-        avg_vel = getAverageDecel(vel0, velF);
-        displacement = avg_vel * TIME_IMPULSE;
-        distance_travelled += displacement;
-        flight_time += TIME_IMPULSE;
-        vel0 = velF;
+    bool new_range = true;
+
+    while (new_range){
+        int another;
+        float range, vel0, velF, decel, instant_decel, force_drag, avg_vel;
+        float displacement, flight_time;
+        printf("What is the target's range?\n");
+        scanf(" %f", &range);
+        float distance_travelled = 0;
+        // flight time calculation loop
+        vel0 = a.muzzle_velocity;
+        while (distance_travelled < range){
+            force_drag = getDragForce(drag_coefficient, vel0);
+            instant_decel = getInstantDecel(force_drag, a.mass);
+            decel = instant_decel * TIME_IMPULSE;
+            velF = vel0 + decel;
+            avg_vel = getAverageDecel(vel0, velF);
+            displacement = avg_vel * TIME_IMPULSE;
+            distance_travelled += displacement;
+            flight_time += TIME_IMPULSE;
+            vel0 = velF;
+        }
+        float bullet_drop = getBulletDrop(flight_time);
+        printf("flight time for %f meters: %f seconds\n", range, flight_time);
+        printf("Initial velocity: %f meters/sec\n", a.muzzle_velocity);
+        printf("Impact velocity: %f meters/sec\n", velF);
+        printf("Bullet drop at %f meters: %f meters\n", range, bullet_drop);
+        printf("Do you want to input an other range? 1/0\n");
+        scanf("%d", &another);
+        if (another < 1){
+            new_range = false;
+        }
+        else {
+            flight_time = 0;
+            bullet_drop = 0;
+        }
     }
-    float bullet_drop = getBulletDrop(flight_time);
-    printf("flight time for %f meters: %f seconds\n", range, flight_time);
-    printf("Initial velocity: %f meters/sec\n", a.muzzle_velocity);
-    printf("Impact velocity: %f meters/sec\n", velF);
-    printf("Bullet drop at %f meters: %f meters\n", range, bullet_drop);
 
     puts("I'm out");
 
