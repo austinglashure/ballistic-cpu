@@ -1,4 +1,6 @@
 TIME_IMPULSE = 0.001
+
+
 class Flight():
     def __init__(self, meters_secs, drag_coefficient, range, bullet_mass):
         self.vel0 = meters_secs
@@ -15,7 +17,7 @@ class Flight():
     
     def calculateVelocityFinal(self):
         self.calculateInstantDeceleration()
-        self.vel_final = self.vel0 + self.instant_decel
+        self.vel_final = self.vel0 + (self.instant_decel * TIME_IMPULSE)
     
     def calculateDisplacement(self):
         self.calculateVelocityFinal()
@@ -30,7 +32,6 @@ class Flight():
             foo += self.displacement
             self.flight_time += TIME_IMPULSE
             self.vel0 = self.vel_final
-            print(self.vel0)
             
     def calculateBulletDrop(self):
         self.calculateFlightTime()
