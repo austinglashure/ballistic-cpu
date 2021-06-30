@@ -32,11 +32,3 @@ class Weather:
         self.air_density = ((self.dry_pressure * AIR_MOLAR_MASS +
                             self.vapor_pressure * VAPOR_MOLAR_MASS)/
                             (UNIVERSAL_GAS_CONSTANT * self.kelvin))
-
-
-test = Weather(85, 30, 100)
-print("Ran")
-print(test.pascals)
-print(test.dry_pressure)
-print(test.vapor_pressure)
-print(test.air_density)
