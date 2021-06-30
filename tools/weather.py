@@ -3,7 +3,7 @@ AIR_MOLAR_MASS = 0.0289654  # kg/mol
 VAPOR_MOLAR_MASS = 0.018016  # kg/mol
 UNIVERSAL_GAS_CONSTANT = 8.312  # J/(K*mol)
 
-# line limit ---------------------------------------------------------------->
+
 class Weather:
     def __init__(self, fahrenheit, inHg, humidity):
         self.fahrenheit = fahrenheit

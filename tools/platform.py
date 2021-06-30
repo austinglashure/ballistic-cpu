@@ -1,5 +1,6 @@
 import math
 
+
 class Platform():
     def __init__(self, bc, cal_inches, muzzle_vel_ft, grains):
         self.bc = bc
