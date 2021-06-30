@@ -1,5 +1,3 @@
-import math
-
 # gas constants
 AIR_MOLAR_MASS = 0.0289654  # kg/mol
 VAPOR_MOLAR_MASS = 0.018016  # kg/mol
@@ -20,7 +18,7 @@ class Weather:
         
     def calculateSaturationVaporPressure(self):
         exponent = 7.5 * self.celcius / (self.celcius + 237.3)
-        self.saturation_pressure = 6.1078 * 100 * math.pow(10, exponent)
+        self.saturation_pressure = 6.1078 * 100 * pow(10, exponent)
 
     def calculatePartialPressures(self):
         self.calculateSaturationVaporPressure()
