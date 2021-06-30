@@ -56,16 +56,20 @@ class Gun:
 
     def get_coef(self, air_density):
         self.coef = .5 * air_density * self.ball_coef * self.cross_sectional_area
-
+        print("coef {}".format(self.coef))
     def get_inst_force(self):
         self.inst_force = self.coef * self.vel0 * self.vel0
+        print("force {}".format(self.inst_force))
 
     def get_inst_acc(self):
         self.instant_acc = -self.inst_force / self.mass
+        print("inst accel {}".format(self.instant_acc))
 
     def get_post_vel(self):
         decel = self.instant_acc * self.time_impulse
+        print("vel0: {}".format(self.vel0))
         self.post_vel = self.vel0 + decel
+        print("velf: {}".format(self.post_vel))
 
     def get_displacement(self):
         avg = (self.vel0 + self.post_vel) / 2
@@ -75,6 +79,7 @@ class Gun:
         self.flight_time = 0
         while distance > 0:
             self.get_inst_force()
+
             self.get_inst_acc()
             self.get_post_vel()
             self.get_displacement()
