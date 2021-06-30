@@ -2,10 +2,9 @@ from tools import weather as w
 from tools import platform as p
 from tools import ballistics as b
 
-
 # .308 weapon profile
 bc, cal, muzz_vel, grains = 0.45, 0.308, 2821.5, 165
-mine = p.Platform(bc, cal, muzz_vel, grains)
+a = p.Platform(bc, cal, muzz_vel, grains)
 
 # weather loop
 picking_weather = True
@@ -17,7 +16,7 @@ while picking_weather:
     # plug it into weather class
     conditions = w.Weather(fahr, inHg, hum)
     # get drag coefficient for ballistics
-    mine.calculateDragCoefficient(conditions.air_density)
+    a.calculateDragCoefficient(conditions.air_density)
     # present data and see if user wants to reinput data
     print(  "\nTemperature: {} degrees Fahrenheit".format(fahr),
             "\nPressure: {} inches of Mercury".format(inHg),
@@ -27,6 +26,16 @@ while picking_weather:
     if reset == 1:
        picking_weather = False
 
-shot = b.Flight(mine.muzzle_vel, mine.drag_coef, 500, mine.mass)
-shot.calculateBulletDrop()
-print(shot.bullet_drop)
+print("Weapon: {} grain {} with a bc ".format(a.grains, a.cal_inches),
+        "of {} and a muzzle velocity of {}\n".format(a.bc, a.muzzle_vel),
+        "meters per second")
+# range and shot calculation loop
+shooting = True
+while shooting:
+    range = int(input("What is the range? (m)\n"))
+    shot = b.Flight(a.muzzle_vel, a.drag_coef, range, a.mass)
+    shot.calculateBulletDrop()
+    print(str(shot.bullet_drop) + " meters vertical adjustment")
+    again = int(input("Would you like to input another range?\n(1/0): "))
+    if again == 0:
+        shooting = False
