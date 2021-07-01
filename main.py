@@ -27,15 +27,15 @@ while picking_weather:
        picking_weather = False
 
 print("Weapon: {} grain {} with a bc ".format(a.grains, a.cal_inches),
-        "of {} and a muzzle velocity of {}\n".format(a.bc, a.muzzle_vel),
+        "of {} and a muzzle velocity of {}\n".format(a.bc, round(a.muzzle_vel)),
         "meters per second")
 # range and shot calculation loop
 shooting = True
 while shooting:
-    range = int(input("What is the range? (m)\n"))
+    range = int(input("\nWhat is the range? (m): "))
     shot = b.Flight(a.muzzle_vel, a.drag_coef, range, a.mass)
     shot.calculateBulletDrop()
-    print(str(shot.bullet_drop) + " meters vertical adjustment")
+    print(str(shot.bullet_drop) + " meters vertical adjustment\n")
     again = int(input("Would you like to input another range?\n(1/0): "))
     if again == 0:
         shooting = False
