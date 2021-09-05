@@ -22,3 +22,8 @@ class Platform():
         self.calculateCrossSectionalArea()
         self.drag_coef = (0.5 * air_density * self.bc *
                           self.cross_sectional_area)
+
+    def show(self):
+        print(f"Muzzle vel: {self.muzzle_vel_ft} ft/sec")
+        print(f"BC: {self.bc}")
+        print(f"Caliber: {self.cal_inches} and Grains: {self.grains}")
