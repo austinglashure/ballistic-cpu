@@ -1,4 +1,4 @@
-TIME_IMPULSE = 0.001
+TIME_IMPULSE = 0.01
 
 
 class Flight():
