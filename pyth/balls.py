@@ -1,11 +1,9 @@
 import math
 """
                 Basic Thrust of this!
-4. Use Trig and the muzzle velocity, and the flight time to find the horizontal drift
-Notes:
-Eventually port with C++ and maybe even Kotlin for mobile
-Eventual endgame?
-Maybe scrape relevant environment data from coordinates
+1. Make GUI to dynamically show bullet drop
+2. Graph it as well
+
 """
 mass_molar_air = 0.0289654  # kg/mol
 mass_molar_vapor = 0.018016  # kg/mol
@@ -32,11 +30,7 @@ class Air:
         self.saturation_vapor_pressure()
         self.partial_pressure()
         self.air_density = (self.dry_pressure * mass_molar_air + self.vapor_pressure * mass_molar_vapor) / (constant_gas_universal * self.kelvin)
-temp = int(input("What's the temperature in Farenheit? "))
-baro = float(input("What's the barometric pressure in in/Hg? "))
-hum = int(input("What's the humidity %? ")) / 100
-air_factors = Air(temp, baro, hum)
-air_factors.air_density()
+
 
 class Gun:
     time_impulse = 0.001
@@ -90,11 +84,3 @@ class Gun:
     
     def bullet_drop(self):
         self.bullet_drop = -4.9 * self.flight_time * self.flight_time
-
-snpr = Gun(0.45, 0.308, 860, 165)
-shot_distance = 500  # meters
-snpr.get_coef(air_factors.air_density)
-snpr.get_flight_time(shot_distance)
-snpr.bullet_drop()
-print("Flight Time: {}".format(snpr.flight_time))
-print("Bullet Drop: {}".format(snpr.bullet_drop))
