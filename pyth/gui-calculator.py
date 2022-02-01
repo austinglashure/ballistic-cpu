@@ -1,4 +1,4 @@
-from tools import *  # imports everything in that folder
+import balls # imports everything in that folder
 import tkinter as tk
 
 window = tk.Tk()
